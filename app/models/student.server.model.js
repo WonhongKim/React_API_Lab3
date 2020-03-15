@@ -16,6 +16,19 @@ var StudentSchema = new Schema({
       password => password && password.length > 6,
       "Password should be longer"
     ]
+  },
+  studentnumber: {
+    type: String,
+    unique: true,
+    required: "student number is required"
+  },
+  name: {
+    type: String,
+    required: "Name is required"
+  },
+  program: {
+    type: String,
+    required: "program is required"
   }
 });
 

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 function App(props) {
@@ -51,24 +54,47 @@ function App(props) {
 
   if (screen === "auth") {
     return (
-      <div className="App">
-        <div>
-          <label>Email: </label>
-          <br />
-          <input type="text" onChange={e => setEmail(e.target.value)} />
-          <br />
-          <label>Password: </label>
-          <br />
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-          <br />
-          <button onClick={auth}>Login</button>
+      <div className="App" style={{ marginTop: "30px" }}>
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4">
+            <Jumbotron>
+              <h2 style={{ marginBottom: "30px" }}>Log in</h2>
+              <Form>
+                <Form.Group>
+                  <Form.Label> Email</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Email"
+                    id="Email"
+                    placeholder="Enter Email"
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label> Password</Form.Label>
+                  <Form.Control
+                    type="Password"
+                    name="Password"
+                    id="Password"
+                    placeholder="Enter Password"
+                    onChange={e => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+              </Form>
+              <button className="btn btn-primary btn-md" onClick={auth}>
+                Login
+              </button>
+            </Jumbotron>
+          </div>
+          <div className="col-4"></div>
         </div>
       </div>
     );
   } else if (screen === "admin@admin.ca") {
     return (
       <div className="App">
-        <p>amdin</p>
+        <p>Welcome </p>
         <a href="/CreateCourse">CreateCourse</a>
         <a href="/CourseList">CourseList</a>
         <button onClick={deleteCookie}>Log out</button>
@@ -77,8 +103,9 @@ function App(props) {
   } else {
     return (
       <div className="App">
-        <p>user</p>
-
+        <p>Welcome {screen}</p>
+        <a href="/BuildTimeTable">Build Time Table</a>
+        <a href="/ViewTimeTable">ViewTimeTable</a>
         <button onClick={deleteCookie}>Log out</button>
       </div>
     );

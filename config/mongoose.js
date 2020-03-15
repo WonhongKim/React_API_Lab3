@@ -18,6 +18,7 @@ module.exports = function() {
 
   require("../app/models/student.server.model");
   require("../app/models/course.server.model");
+  require("../app/models/timetable.server.model");
   // Return the Mongoose connection instance
   return db;
 };

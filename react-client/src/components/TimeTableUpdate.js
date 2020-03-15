@@ -5,52 +5,51 @@ import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import { withRouter } from "react-router-dom";
 
-function CourseUpdate(props) {
+function TimeTableUpdate(props) {
   console.log(props.match.params.id);
-  const [course, setNewCourse] = useState({
+  const [timetable, setNewTimetable] = useState({
     _id: "",
+    studentemail: "",
     coursename: "",
-    coursetype: "",
-    courseprofessor: ""
+    section: ""
   });
   const apiUrl =
-    "http://localhost:3000/api/courseupdate/" + props.match.params.id;
+    "http://localhost:3000/api/timetableupdate/" + props.match.params.id;
 
   useEffect(() => {
-    LoadCourse();
+    LoadTable();
   }, []);
 
-  const LoadCourse = async () => {
+  const LoadTable = async () => {
     const result = await axios(apiUrl);
-    setNewCourse(result.data);
+    setNewTimetable(result.data);
   };
 
-  const updateCourse = e => {
+  const updateTable = e => {
     e.preventDefault();
     const data = {
-      coursename: course.coursename,
-      coursetype: course.coursetype,
-      courseprofessor: course.courseprofessor
+      coursename: timetable.coursename,
+      section: timetable.section
     };
     axios
       .put(apiUrl, data)
       .then(result => {
-        props.history.push("/CourseList");
+        props.history.push("/ViewTimeTable");
       })
       .catch(error => {
         props.history.push("/ErrorPage");
       });
   };
 
-  const deleteCourse = id => {
+  const deleteTable = id => {
     axios.delete(apiUrl).then(result => {
-      props.history.push("/CourseList");
+      props.history.push("/ViewTimeTable");
     });
   };
 
   const onChange = e => {
     e.persist();
-    setNewCourse({ ...course, [e.target.name]: e.target.value });
+    setNewTimetable({ ...timetable, [e.target.name]: e.target.value });
   };
 
   return (
@@ -59,7 +58,7 @@ function CourseUpdate(props) {
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
-            <Form onSubmit={updateCourse}>
+            <Form onSubmit={updateTable}>
               <Form.Group>
                 <Form.Label> coursename</Form.Label>
                 <Form.Control
@@ -67,29 +66,18 @@ function CourseUpdate(props) {
                   name="coursename"
                   id="coursename"
                   placeholder="Enter coursename"
-                  value={course.coursename}
+                  value={timetable.coursename}
                   onChange={onChange}
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>coursetype</Form.Label>
+                <Form.Label>section</Form.Label>
                 <Form.Control
                   type="text"
-                  name="coursetype"
-                  id="coursetype"
-                  placeholder="Enter coursetype"
-                  value={course.coursetype}
-                  onChange={onChange}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>courseprofessor</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="courseprofessor"
-                  id="courseprofessor"
-                  placeholder="Enter courseprofessor"
-                  value={course.courseprofessor}
+                  name="section"
+                  id="section"
+                  placeholder="Enter section"
+                  value={timetable.section}
                   onChange={onChange}
                 />
               </Form.Group>
@@ -101,7 +89,7 @@ function CourseUpdate(props) {
                 type="button"
                 variant="danger"
                 onClick={() => {
-                  deleteCourse(course._id);
+                  deleteTable(timetable._id);
                 }}
               >
                 Delete
@@ -115,4 +103,4 @@ function CourseUpdate(props) {
   );
 }
 
-export default withRouter(CourseUpdate);
+export default withRouter(TimeTableUpdate);
