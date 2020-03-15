@@ -10,8 +10,9 @@ import CreateStudent from "./components/Createstudent";
 import CourseManagement from "./components/CourseManagement";
 import CreateCourse from "./components/CreateCourse";
 import ErrorPage from "./components/ErrorPage";
+import CourseList from "./components/CourseList";
+import CourseUpdate from "./components/CourseUpdate";
 
-//
 function App() {
   return (
     <Router>
@@ -31,6 +32,8 @@ function App() {
         <Route render={() => <CreateStudent />} path="/createstudent" />
         <Route render={() => <CourseManagement />} path="/CourseManagement" />
         <Route render={() => <CreateCourse />} path="/CreateCourse" />
+        <Route render={() => <CourseList />} path="/CourseList" />
+        <Route render={() => <CourseUpdate />} path="/CourseUpdate/:id" />
         <Route render={() => <ErrorPage />} path="/ErrorPage" />
       </div>
     </Router>

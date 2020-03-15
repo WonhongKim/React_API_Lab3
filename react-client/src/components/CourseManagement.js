@@ -70,6 +70,7 @@ function App(props) {
       <div className="App">
         <p>amdin</p>
         <a href="/CreateCourse">CreateCourse</a>
+        <a href="/CourseList">CourseList</a>
         <button onClick={deleteCookie}>Log out</button>
       </div>
     );

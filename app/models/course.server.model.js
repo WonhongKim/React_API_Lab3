@@ -10,7 +10,7 @@ var CourseSchema = new Schema({
   coursetype: {
     type: String
   },
-  coursprofessor: {
+  courseprofessor: {
     type: String
   }
 });

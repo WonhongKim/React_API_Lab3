@@ -5,7 +5,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function CreateStudent(props) {
+function CourseUpdate(props) {
   const [student, setStudent] = useState({
     _id: "",
     email: "",
@@ -31,10 +31,10 @@ function CreateStudent(props) {
   };
 
   return (
-    <div class="App">
-      <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+    <div className="App">
+      <div className="row">
+        <div className="col-lg-4"></div>
+        <div className="col-lg-4">
           <Jumbotron>
             <Form onSubmit={saveStudent}>
               <Form.Group>
@@ -66,10 +66,10 @@ function CreateStudent(props) {
             </Form>
           </Jumbotron>
         </div>
-        <div class="col-lg-4"></div>
+        <div className="col-lg-4"></div>
       </div>
     </div>
   );
 }
 
-export default withRouter(CreateStudent);
+export default withRouter(CourseUpdate);

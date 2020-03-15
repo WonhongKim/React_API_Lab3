@@ -1,35 +1,47 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import { withRouter } from "react-router-dom";
 
-function CreateCourse(props) {
+function CourseUpdate(props) {
+  console.log(props.match.params.id);
   const [course, setNewCourse] = useState({
     _id: "",
     coursename: "",
     coursetype: "",
     courseprofessor: ""
   });
+  const apiUrl =
+    "http://localhost:3000/api/courseupdate/" + props.match.params.id;
 
-  const apiUrl = "http://localhost:3000/api/coursecreate";
+  useEffect(() => {
+    LoadCourse();
+  }, []);
 
-  const saveNewCourse = e => {
+  const LoadCourse = async () => {
+    const result = await axios(apiUrl);
+    console.log(result.data);
+    setNewCourse(result.data);
+  };
+
+  const updateCourse = e => {
     e.preventDefault();
     const data = {
       coursename: course.coursename,
       coursetype: course.coursetype,
       courseprofessor: course.courseprofessor
     };
-    axios
-      .post(apiUrl, data)
-      .then(result => {
-        props.history.push("/CourseManagement");
-      })
-      .catch(error => {
-        props.history.push("/ErrorPage");
-      });
+    axios.put(apiUrl, data).then(result => {
+      props.history.push("/CourseList");
+    });
+  };
+
+  const deleteCourse = id => {
+    axios.delete(apiUrl).then(result => {
+      props.history.push("/CourseList");
+    });
   };
 
   const onChange = e => {
@@ -43,7 +55,7 @@ function CreateCourse(props) {
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
-            <Form onSubmit={saveNewCourse}>
+            <Form onSubmit={updateCourse}>
               <Form.Group>
                 <Form.Label> coursename</Form.Label>
                 <Form.Control
@@ -81,6 +93,15 @@ function CreateCourse(props) {
               <Button variant="primary" type="submit">
                 Save
               </Button>
+              <Button
+                type="button"
+                variant="danger"
+                onClick={() => {
+                  deleteCourse(course._id);
+                }}
+              >
+                Delete
+              </Button>
             </Form>
           </Jumbotron>
         </div>
@@ -90,4 +111,4 @@ function CreateCourse(props) {
   );
 }
 
-export default withRouter(CreateCourse);
+export default withRouter(CourseUpdate);
