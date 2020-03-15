@@ -56,10 +56,11 @@ function BuildTimeTable(props) {
 
   return (
     <div className="app">
-      <div className="row">
+      <div className="row" style={{ marginTop: "30px" }}>
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
+            <h2>Build Time Table</h2>
             <Form onSubmit={saveNewTimeTable}>
               <Form.Group>
                 <Form.Label> studentemail</Form.Label>
@@ -96,9 +97,18 @@ function BuildTimeTable(props) {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Save
-              </Button>
+              <div>
+                <Button
+                  style={{ marginRight: "20px" }}
+                  variant="primary"
+                  type="submit"
+                >
+                  Save
+                </Button>
+                <a className="btn btn-warning btn-md" href="/CourseManagement">
+                  Back
+                </a>
+              </div>
             </Form>
           </Jumbotron>
         </div>

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 function CreateCourse(props) {
+  const [showLoading, setShowLoading] = useState(true);
   const [course, setNewCourse] = useState({
     _id: "",
     coursename: "",

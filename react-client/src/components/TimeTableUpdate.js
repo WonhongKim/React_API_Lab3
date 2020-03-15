@@ -53,11 +53,12 @@ function TimeTableUpdate(props) {
   };
 
   return (
-    <div className="app">
+    <div className="app" style={{ marginTop: "30px" }}>
       <div className="row">
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
+            <h2 style={{ marginBottom: "30px" }}>TimeTable edit</h2>
             <Form onSubmit={updateTable}>
               <Form.Group>
                 <Form.Label> coursename</Form.Label>
@@ -82,7 +83,11 @@ function TimeTableUpdate(props) {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button
+                style={{ marginRight: "20px" }}
+                variant="primary"
+                type="submit"
+              >
                 Save
               </Button>
               <Button
