@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Jumbotron from "react-bootstrap/Jumbotron";
@@ -31,37 +31,43 @@ function CreateStudent(props) {
   };
 
   return (
-    <div>
-      <Jumbotron>
-        <Form onSubmit={saveStudent}>
-          <Form.Group>
-            <Form.Label> email</Form.Label>
-            <Form.Control
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Enter email"
-              value={student.email}
-              onChange={onChange}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="text"
-              name="password"
-              id="password"
-              placeholder="Enter password"
-              value={student.password}
-              onChange={onChange}
-            />
-          </Form.Group>
+    <div class="App">
+      <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <Jumbotron>
+            <Form onSubmit={saveStudent}>
+              <Form.Group>
+                <Form.Label> email</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Enter email"
+                  value={student.email}
+                  onChange={onChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="password"
+                  id="password"
+                  placeholder="Enter password"
+                  value={student.password}
+                  onChange={onChange}
+                />
+              </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Save
-          </Button>
-        </Form>
-      </Jumbotron>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
+            </Form>
+          </Jumbotron>
+        </div>
+        <div class="col-lg-4"></div>
+      </div>
     </div>
   );
 }

@@ -1,20 +1,17 @@
-// Load the module dependencies
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-//Define a schema
 const Schema = mongoose.Schema;
-//
-// Define a new 'UserSchema'
+
 var StudentSchema = new Schema({
   email: {
     type: String,
-    // Validate the email format
+    unique: true,
+    required: "email is required",
     match: [/.+\@.+\..+/, "Please fill a valid email address"]
   },
   password: {
     type: String,
-    // Validate the 'password' value length
     validate: [
       password => password && password.length > 6,
       "Password should be longer"
