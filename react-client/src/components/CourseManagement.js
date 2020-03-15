@@ -102,11 +102,41 @@ function App(props) {
     );
   } else {
     return (
-      <div className="App">
-        <p>Welcome {screen}</p>
-        <a href="/BuildTimeTable">Build Time Table</a>
-        <a href="/ViewTimeTable">ViewTimeTable</a>
-        <button onClick={deleteCookie}>Log out</button>
+      <div className="jumbotron">
+        <h2>Welcome {screen}</h2>
+        <p className="lead">This is student course management application</p>
+        <hr className="my-4" />
+        <p>
+          - If you don't enrolled in any course, Please Build your timetable
+          first.
+        </p>
+        <p>
+          - Through the view Time table meanu, You can see the course you
+          enrolled in.
+        </p>
+        <p>
+          - If you don't want to use application anymore, please do the log-out
+          for keeping your information.
+        </p>
+        <div style={{ marginTop: "20px" }}>
+          <a
+            className="btn btn-primary btn-md"
+            style={{ marginRight: "20px" }}
+            href="/BuildTimeTable"
+          >
+            Build Time Table
+          </a>
+          <a
+            className="btn btn-warning btn-md"
+            style={{ marginRight: "20px" }}
+            href="/ViewTimeTable"
+          >
+            View Time Table
+          </a>
+          <button className="btn btn-danger btn-md" onClick={deleteCookie}>
+            Log out
+          </button>
+        </div>
       </div>
     );
   }

@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
 import { withRouter } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
+
+import Jumbotron from "react-bootstrap/Jumbotron";
 
 function ViewTimeTable(props) {
   const [screen, setScreen] = useState("");
+  const [showLoading, setShowLoading] = useState(true);
   const [timetable, setTimeTable] = useState([]);
   const [timetablesize, setTimetablesize] = useState();
   const apiUrl = "http://localhost:3000/api/viewtimetable";
@@ -22,6 +26,7 @@ function ViewTimeTable(props) {
         }
         setTimeTable(collction);
       }
+      setShowLoading(false);
       if (result.data.length === 0) {
         setTimetablesize(0);
       }
@@ -46,7 +51,6 @@ function ViewTimeTable(props) {
       console.log(e);
     }
   };
-
   const editTimetable = id => {
     props.history.push({
       pathname: "/TimeTableUpdate/" + id
@@ -63,27 +67,42 @@ function ViewTimeTable(props) {
         </div>
       ) : (
         <div>
-          <div className="row">
+          <div className="row" style={{ marginTop: "40px" }}>
             <div className="col-4"></div>
             <div className="col-4">
-              <h2>Current course list</h2>
-              <ListGroup>
-                {timetable.map((item, idx) => (
-                  <ListGroup.Item
-                    key={idx}
-                    action
-                    onClick={() => {
-                      editTimetable(item._id);
-                    }}
-                  >
-                    CourseType :{item.coursename}
-                    Courseprofessor : {item.section}
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+              <Jumbotron>
+                <h2 style={{ marginBottom: "30px" }}>Current course list</h2>
+                {showLoading && (
+                  <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner>
+                )}
+
+                <ListGroup>
+                  {timetable.map((item, idx) => (
+                    <ListGroup.Item
+                      key={idx}
+                      action
+                      onClick={() => {
+                        editTimetable(item._id);
+                      }}
+                    >
+                      <h3>{item.coursename}</h3>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+
+                <a
+                  className="btn btn-primary btn-md"
+                  style={{ marginTop: "30px" }}
+                  href="/CourseManagement"
+                >
+                  Back
+                </a>
+              </Jumbotron>
             </div>
+            <div className="col-4"></div>
           </div>
-          <div className="col-4"></div>
         </div>
       )}
     </div>

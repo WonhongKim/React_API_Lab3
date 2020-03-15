@@ -59,6 +59,7 @@ function CourseUpdate(props) {
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
+            <h2 style={{ marginBottom: "30px" }}>course edit</h2>
             <Form onSubmit={updateCourse}>
               <Form.Group>
                 <Form.Label> coursename</Form.Label>
@@ -94,7 +95,11 @@ function CourseUpdate(props) {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button
+                style={{ marginRight: "20px" }}
+                variant="primary"
+                type="submit"
+              >
                 Save
               </Button>
               <Button
