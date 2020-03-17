@@ -43,15 +43,21 @@ function BuildTimeTable(props) {
       coursename: timetable.coursename,
       section: timetable.section
     };
-    axios
-      .post(apiUrl, data)
-      .then(result => {
-        props.history.push("/CourseManagement");
-      })
-      .catch(error => {
-        props.history.push("/ErrorPage");
-      });
-    console.log(data);
+    if (data.coursename === "") {
+      window.alert("Please select course");
+    } else if (data.section === "") {
+      window.alert("Please select section");
+    } else {
+      axios
+        .post(apiUrl, data)
+        .then(result => {
+          props.history.push("/CourseManagement");
+        })
+        .catch(error => {
+          props.history.push("/ErrorPage");
+        });
+      console.log(data);
+    }
   };
 
   const readCookie = async () => {
@@ -108,6 +114,7 @@ function BuildTimeTable(props) {
                   target={timetable.coursename}
                   onChange={onChange}
                 >
+                  <option defaultValue>Selecte Course</option>
                   {avilableCourse.map((e, key) => {
                     return (
                       <option key={key} value={e.value}>

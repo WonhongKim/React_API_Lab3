@@ -3,7 +3,6 @@ import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
 import { withRouter } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 function ViewTimeTable(props) {
