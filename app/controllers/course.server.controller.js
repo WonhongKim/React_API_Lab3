@@ -1,4 +1,5 @@
 const Course = require("mongoose").model("Course");
+const TimeTable = require("mongoose").model("TimeTable");
 const config = require("../../config/config");
 
 const getErrorMessage = function(err) {
@@ -55,22 +56,16 @@ exports.read = function(req, res) {
   res.json(req.course);
 };
 
-// 'userByID' controller method to find a user by its id
 exports.userByID = function(req, res, next, id) {
-  // Use the 'User' static 'findOne' method to retrieve a specific user
   Course.findOne(
     {
       _id: id
     },
     (err, course) => {
       if (err) {
-        // Call the next middleware with an error message
         return next(err);
       } else {
-        // Set the 'req.user' property
         req.course = course;
-        console.log(course);
-        // Call the next middleware
         next();
       }
     }
@@ -78,7 +73,6 @@ exports.userByID = function(req, res, next, id) {
 };
 
 exports.update = function(req, res, next) {
-  console.log(req.body);
   Course.findByIdAndUpdate(req.course.id, req.body, function(err, course) {
     if (err) {
       console.log(err);
@@ -92,5 +86,19 @@ exports.delete = function(req, res, next) {
   Course.findByIdAndRemove(req.course.id, req.body, function(err, course) {
     if (err) return next(err);
     res.json(course);
+  });
+};
+
+exports.studentList = function(req, res, next) {
+  const courseName = req.course.coursename;
+  console.log(courseName);
+  TimeTable.find({ coursename: courseName }, function(err, timetable) {
+    if (err) {
+      return next(err);
+    } else {
+      res.json(timetable);
+      console.log(timetable);
+      next();
+    }
   });
 };

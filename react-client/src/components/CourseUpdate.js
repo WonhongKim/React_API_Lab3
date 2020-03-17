@@ -3,22 +3,32 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import ListGroup from "react-bootstrap/ListGroup";
 import { withRouter } from "react-router-dom";
 
 function CourseUpdate(props) {
-  console.log(props.match.params.id);
   const [course, setNewCourse] = useState({
     _id: "",
     coursename: "",
     coursetype: "",
     courseprofessor: ""
   });
+  const [courseStudents, setCourseStudents] = useState([]);
   const apiUrl =
     "http://localhost:3000/api/courseupdate/" + props.match.params.id;
 
+  const apiUrlStudent =
+    "http://localhost:3000/api/coursestudents/" + props.match.params.id;
+
   useEffect(() => {
     LoadCourse();
+    LoadCourseStudent();
   }, []);
+
+  const LoadCourseStudent = async () => {
+    const result = await axios(apiUrlStudent);
+    setCourseStudents(result.data);
+  };
 
   const LoadCourse = async () => {
     const result = await axios(apiUrl);
@@ -55,7 +65,7 @@ function CourseUpdate(props) {
 
   return (
     <div className="app">
-      <div className="row">
+      <div className="row" style={{ marginTop: "30px" }}>
         <div className="col-lg-4"></div>
         <div className="col-lg-4">
           <Jumbotron>
@@ -112,6 +122,24 @@ function CourseUpdate(props) {
                 Delete
               </Button>
             </Form>
+          </Jumbotron>
+        </div>
+        <div className="col-lg-4"></div>
+      </div>
+
+      <div className="row">
+        <div className="col-lg-4"></div>
+        <div className="col-lg-4">
+          <Jumbotron>
+            <h2 style={{ marginBottom: "30px" }}>Student List</h2>
+            <p>Students who currently enrolled this course</p>
+            <ListGroup>
+              {courseStudents.map((item, idx) => (
+                <ListGroup.Item key={idx}>
+                  <p>{item.studentemail}</p>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
           </Jumbotron>
         </div>
         <div className="col-lg-4"></div>

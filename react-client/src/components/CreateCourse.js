@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Spinner from "react-bootstrap/Spinner";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 function CreateCourse(props) {
-  const [showLoading, setShowLoading] = useState(true);
   const [course, setNewCourse] = useState({
     _id: "",
     coursename: "",
@@ -19,19 +17,28 @@ function CreateCourse(props) {
 
   const saveNewCourse = e => {
     e.preventDefault();
+
     const data = {
       coursename: course.coursename,
       coursetype: course.coursetype,
       courseprofessor: course.courseprofessor
     };
-    axios
-      .post(apiUrl, data)
-      .then(result => {
-        props.history.push("/CourseManagement");
-      })
-      .catch(error => {
-        props.history.push("/ErrorPage");
-      });
+    if (data.coursename === "") {
+      window.alert("Please add coursename");
+    } else if (data.coursetype === "") {
+      window.alert("Please add coursetype");
+    } else if (data.courseprofessor === "") {
+      window.alert("Please add courseprofessor");
+    } else {
+      axios
+        .post(apiUrl, data)
+        .then(result => {
+          props.history.push("/CourseManagement");
+        })
+        .catch(error => {
+          props.history.push("/ErrorPage");
+        });
+    }
   };
 
   const onChange = e => {

@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 
 function BuildTimeTable(props) {
   const [screen, setScreen] = useState("");
+  const [avilableCourse, setAvilableCourse] = useState([]);
   const [timetable, setNewTimetable] = useState({
     _id: "",
     studentemail: "",
@@ -15,6 +16,25 @@ function BuildTimeTable(props) {
   });
 
   const apiUrl = "http://localhost:3000/api/buildtimetable";
+  const apiUrlgetCourse = "http://localhost:3000/api/courselist";
+
+  const CourseListChecker = async () => {
+    try {
+      const course = await axios(apiUrlgetCourse);
+      const collction = [];
+      if (course.data !== undefined) {
+        for (var i = 0; i < course.data.length; i++) {
+          collction.push({
+            label: course.data[i].coursename,
+            value: course.data[i].coursename
+          });
+        }
+        setAvilableCourse(collction);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const saveNewTimeTable = e => {
     e.preventDefault();
@@ -23,14 +43,21 @@ function BuildTimeTable(props) {
       coursename: timetable.coursename,
       section: timetable.section
     };
-    axios
-      .post(apiUrl, data)
-      .then(result => {
-        props.history.push("/CourseManagement");
-      })
-      .catch(error => {
-        props.history.push("/ErrorPage");
-      });
+    if (data.coursename === "") {
+      window.alert("Please select course");
+    } else if (data.section === "") {
+      window.alert("Please select section");
+    } else {
+      axios
+        .post(apiUrl, data)
+        .then(result => {
+          props.history.push("/CourseManagement");
+        })
+        .catch(error => {
+          props.history.push("/ErrorPage");
+        });
+      console.log(data);
+    }
   };
 
   const readCookie = async () => {
@@ -47,11 +74,14 @@ function BuildTimeTable(props) {
   };
   useEffect(() => {
     readCookie();
+    CourseListChecker();
   }, []);
 
   const onChange = e => {
     e.persist();
     setNewTimetable({ ...timetable, [e.target.name]: e.target.value });
+    console.log(e);
+    console.log(timetable);
   };
 
   return (
@@ -75,15 +105,24 @@ function BuildTimeTable(props) {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>coursename</Form.Label>
+                <Form.Label>Example select</Form.Label>
                 <Form.Control
-                  type="text"
+                  as="select"
                   name="coursename"
                   id="coursename"
-                  placeholder="Enter coursename"
                   value={timetable.coursename}
+                  target={timetable.coursename}
                   onChange={onChange}
-                />
+                >
+                  <option defaultValue>Selecte Course</option>
+                  {avilableCourse.map((e, key) => {
+                    return (
+                      <option key={key} value={e.value}>
+                        {e.label}
+                      </option>
+                    );
+                  })}
+                </Form.Control>
               </Form.Group>
               <Form.Group>
                 <Form.Label> section</Form.Label>

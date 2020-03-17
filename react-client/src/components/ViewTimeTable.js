@@ -3,7 +3,6 @@ import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
 import { withRouter } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-
 import Jumbotron from "react-bootstrap/Jumbotron";
 
 function ViewTimeTable(props) {
@@ -63,7 +62,7 @@ function ViewTimeTable(props) {
       {timetablesize === 0 ? (
         <div>
           <p>Nohting Added Yet</p>
-          <a href="/CreateCourse">Go to CreateCourse</a>
+          <a href="/BuildTimeTable">Go to CreateCourse</a>
         </div>
       ) : (
         <div>

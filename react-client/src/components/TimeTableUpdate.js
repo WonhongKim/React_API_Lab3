@@ -68,6 +68,7 @@ function TimeTableUpdate(props) {
                   id="coursename"
                   placeholder="Enter coursename"
                   value={timetable.coursename}
+                  readOnly
                   onChange={onChange}
                 />
               </Form.Group>
