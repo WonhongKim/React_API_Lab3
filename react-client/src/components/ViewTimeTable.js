@@ -63,7 +63,7 @@ function ViewTimeTable(props) {
       {timetablesize === 0 ? (
         <div>
           <p>Nohting Added Yet</p>
-          <a href="/CreateCourse">Go to CreateCourse</a>
+          <a href="/BuildTimeTable">Go to CreateCourse</a>
         </div>
       ) : (
         <div>

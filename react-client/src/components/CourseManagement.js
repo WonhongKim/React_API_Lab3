@@ -93,11 +93,38 @@ function App(props) {
     );
   } else if (screen === "admin@admin.ca") {
     return (
-      <div className="App">
-        <p>Welcome </p>
-        <a href="/CreateCourse">CreateCourse</a>
-        <a href="/CourseList">CourseList</a>
-        <button onClick={deleteCookie}>Log out</button>
+      <div className="jumbotron">
+        <h2>Welcome {screen}</h2>
+        <p className="lead">This is Course management Page</p>
+        <hr className="my-4" />
+        <p>- If you don't add any courses, please add a course for student</p>
+        <p>
+          - Through the course list menu, you can modify course detail and
+          delete the course
+        </p>
+        <p>
+          - If you don't want to use application anymore, please do the log-out
+          for keeping your information.
+        </p>
+        <div style={{ marginTop: "20px" }}>
+          <a
+            className="btn btn-primary btn-md"
+            style={{ marginRight: "20px" }}
+            href="/CreateCourse"
+          >
+            Create Course for Students
+          </a>
+          <a
+            className="btn btn-warning btn-md"
+            style={{ marginRight: "20px" }}
+            href="/CourseList"
+          >
+            Courrent course list
+          </a>
+          <button className="btn btn-danger btn-md" onClick={deleteCookie}>
+            Log out
+          </button>
+        </div>
       </div>
     );
   } else {
